@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Information — Bank Marketing</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li><li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li><li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown"><a href="#">Models ▾</a><ul class="dropdown-menu">
+          <li><a href="logistic.html">📈 Logistic Regression</a></li><li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+          <li><a href="random_forest.html">🌲 Random Forest</a></li><li><a href="xgboost.html">⚡ XGBoost</a></li>
+        </ul></li>
+        <li><a href="results.html">Results</a></li><li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html" class="active">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero"><div class="hero-content">
+    <div class="hero-badge">ES 335 · Undergraduate · Individual project</div>
+    <h1>Project <span>Information</span></h1>
+    <p>Project scope and reproducibility information.</p>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="section-header"><h2>Course project</h2><p>Bank Marketing Subscription Prediction</p><div class="section-line"></div></div>
+    <div class="story-grid">
+      <div class="story-card story-problem"><div class="story-icon">🎓</div>
+        <h3>Submission context</h3>
+        <p>This website is being prepared as an individual undergraduate project for <strong>ES 335 at IIT Gandhinagar</strong>.</p>
+        <p>The project studies the use of classification models to predict whether a customer subscribed to a bank term deposit, using the publicly available Bank Marketing dataset.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section section-alt"><div class="container">
+    <div class="section-header"><h2>Data source and reproduction</h2><p>Where the data and analysis materials come from</p><div class="section-line"></div></div>
+    <div class="story-grid">
+      <div class="story-card"><div class="story-icon">🗃️</div><h3>Dataset</h3>
+        <p>Bank Marketing dataset, sourced from the UCI Machine Learning Repository.</p>
+        <p><a href="https://archive.ics.uci.edu/dataset/222/bank+marketing" target="_blank" rel="noopener">Open the UCI dataset record</a>.</p>
+      </div>
+      <div class="story-card"><div class="story-icon">💻</div><h3>Source code</h3>
+        <p>Jupyter notebooks and analysis scripts are included in the project repository. Consult the repository README for the execution order, dependencies, and reproduction instructions.</p>
+        <p>Reported results should be interpreted alongside the documented split, preprocessing, and evaluation procedure.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <footer><p>🏦 Bank Marketing Subscription Prediction &nbsp;|&nbsp; ES 335 Individual Course Project — IIT Gandhinagar &nbsp;</p></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

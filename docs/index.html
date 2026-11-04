@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Marketing Campaign</title>
+  <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' 
+    viewBox='0 0 100 100'>
+    <text y='.9em' font-size='90'>🏦</text>
+    </svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+.updated-analysis-note{background:#eef6ff;border-left:4px solid #2563eb;padding:16px 18px;margin:18px 0;border-radius:8px;line-height:1.55}
+.updated-analysis-note strong{color:#173b70}
+.updated-metrics-table{width:100%;border-collapse:collapse;margin:18px 0}
+.updated-metrics-table th,.updated-metrics-table td{padding:10px;border-bottom:1px solid #dbe3ee;text-align:center}
+.updated-metrics-table th:first-child,.updated-metrics-table td:first-child{text-align:left}
+</style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo">
+        🏦 Bank <span>Marketing</span>
+      </a>
+
+      <!-- Hamburger (mobile) -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+
+      <!-- Nav Links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+
+        <!-- Models Dropdown -->
+        <li class="dropdown">
+          <a href="#">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       HERO SECTION
+       ============================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🎓 ES 335 Undergraduate Machine Learning Project</div>
+      <h1>Will the Customer Say <span>Yes</span>?</h1>
+      <p>
+        A real-world machine learning study on a Portuguese bank's
+        telemarketing campaign — predicting term deposit subscriptions
+        to save time, money, and effort.
+      </p>
+      <div class="hero-buttons">
+        <a href="roadmap.html" class="btn btn-primary">
+          <i class="fas fa-map"></i> View Roadmap
+        </a>
+        <a href="results.html" class="btn btn-outline">
+          <i class="fas fa-chart-bar"></i> See Results
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- END HERO -->
+
+
+  <!-- ============================================
+       STORY SECTION — The Problem
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📖 The Story</h2>
+        <p>Where it all started…</p>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Story Cards -->
+      <div class="story-grid">
+
+        <!-- Card 1: The Problem -->
+        <div class="story-card story-problem">
+          <div class="story-icon">💸</div>
+          <h3>The Problem</h3>
+          <p>
+            A bank in Portugal was running phone-based marketing campaigns
+            to get customers to subscribe to a <strong>term deposit</strong>.
+            Agents called <strong>thousands of people</strong> every day —
+            most of them said <strong>NO</strong>.
+          </p>
+          <p>
+            Every unnecessary call wasted <strong>time</strong>,
+            <strong>money</strong>, and <strong>agent energy</strong>.
+            The bank was spending heavily on a campaign with no real targeting
+            strategy — just calling everyone and hoping for the best.
+          </p>
+          <div class="story-stat">
+            <span>❌</span>
+            <strong>~88% of calls ended with no subscription</strong>
+          </div>
+        </div>
+
+        <!-- Card 2: The Question -->
+        <div class="story-card story-question">
+          <div class="story-icon">🤔</div>
+          <h3>The Question</h3>
+          <p>
+            What if the bank could <strong>predict</strong> — before making
+            the call — whether a customer is likely to say
+            <strong style="color: var(--secondary)">YES</strong>?
+          </p>
+          <p>
+            Instead of calling 10,000 people randomly, they could focus only
+            on the <strong>right customers</strong> at the
+            <strong>right time</strong> — saving a massive amount of resources.
+          </p>
+          <div class="story-stat">
+            <span>💡</span>
+            <strong>Smarter targeting = less cost, more success</strong>
+          </div>
+        </div>
+
+        <!-- Card 3: The Goal -->
+        <div class="story-card story-goal">
+          <div class="story-icon">🎯</div>
+          <h3>The Goal</h3>
+          <p>
+            We built a <strong>Machine Learning system</strong> that analyzes
+            customer data — age, job, balance, previous interactions — and
+            <strong>predicts the likelihood</strong> of subscribing to a
+            term deposit.
+          </p>
+          <p>
+            This means the bank can now <strong>prioritize calls</strong>,
+            reduce wasted effort, and ultimately
+            <strong>save money while increasing revenue</strong>.
+          </p>
+          <div class="story-stat">
+            <span>🏆</span>
+            <strong>89.40% test accuracy; compare against the 88.30% majority baseline</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END STORY SECTION -->
+
+
+  <!-- ============================================
+       STATS SECTION
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📊 Project at a Glance</h2>
+        <p>Key numbers from our study</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-4">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-value">45,211</div>
+          <div class="stat-label">Total Records</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔢</div>
+          <div class="stat-value">17</div>
+          <div class="stat-label">Features</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-value">4</div>
+          <div class="stat-label">ML Models</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-value">89.40%</div>
+          <div class="stat-label">Highest Model Accuracy</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END STATS SECTION -->
+
+
+  <!-- ============================================
+       WHY IT MATTERS SECTION
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>💰 Why Does This Matter?</h2>
+        <p>Real impact. Real savings.</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-3">
+
+        <div class="impact-card">
+          <div class="impact-icon">📞</div>
+          <h4>Fewer Wasted Calls</h4>
+          <p>
+            Instead of cold-calling thousands of random customers,
+            the bank targets only those predicted to say YES —
+            dramatically reducing call volume.
+          </p>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-icon">💵</div>
+          <h4>Lower Campaign Costs</h4>
+          <p>
+            Every skipped unnecessary call saves agent time and
+            operational costs. Smarter campaigns mean a
+            higher ROI with less spending.
+          </p>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-icon">📈</div>
+          <h4>Higher Success Rate</h4>
+          <p>
+            By focusing on likely subscribers, the bank
+            increases its conversion rate — more deposits,
+            more revenue, happier customers.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- END WHY IT MATTERS -->
+
+
+  <!-- ============================================
+       MODELS OVERVIEW SECTION
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🤖 Models We Used</h2>
+        <p>Four candidate models compared using class-sensitive metrics</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-4">
+
+          <a href="xgboost.html" class="model-card">
+          <div class="model-icon">⚡</div>
+          <h4>XGBoost</h4>
+          <div class="model-score">AUC: 0.781</div>
+          <span class="badge badge-blue">High accuracy; low recall</span>
+        </a>
+
+        <a href="random_forest.html" class="model-card">
+          <div class="model-icon">🌲</div>
+          <h4>Random Forest</h4>
+          <div class="model-score">AUC: 0.798</div>
+          <span class="badge badge-green">Best positive-class F1</span>
+        </a>
+
+        <a href="logistic.html" class="model-card">
+          <div class="model-icon">📈</div>
+          <h4>Logistic Regression</h4>
+          <div class="model-score">AUC: 0.772</div>
+          <span class="badge badge-blue">Baseline</span>
+        </a>
+
+        <a href="decision_tree.html" class="model-card">
+          <div class="model-icon">🌿</div>
+          <h4>Decision Tree</h4>
+          <div class="model-score">AUC: 0.62</div>
+          <span class="badge badge-orange">Simple</span>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- END MODELS OVERVIEW -->
+
+
+  <!-- ============================================
+       CTA SECTION
+       ============================================ -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Explore the Full Analysis?</h2>
+      <p>Follow our journey from raw data to powerful predictions</p>
+      <div class="hero-buttons">
+        <a href="roadmap.html" class="btn btn-primary">
+          <i class="fas fa-map-signs"></i> Start with Roadmap
+        </a>
+        <a href="dataset.html" class="btn btn-outline">
+          <i class="fas fa-database"></i> Explore Dataset
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- END CTA -->
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <!--
+  <script>
+    /* ----- Mobile Menu Toggle ----- */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    /* ----- Active nav link highlight ----- */
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+  -->
+  <script src="js/main.js"></script>
+
+    <!-- ============================================
+     Floating Repository Button (Fixed)
+     ============================================ -->
+  
+</body>
+</html>

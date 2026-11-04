@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dataset — Bank Marketing Campaign</title>
+  <!-- ============================================
+       Favicon
+       ============================================ -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+.updated-analysis-note{background:#eef6ff;border-left:4px solid #2563eb;padding:16px 18px;margin:18px 0;border-radius:8px;line-height:1.55}
+.updated-analysis-note strong{color:#173b70}
+.updated-metrics-table{width:100%;border-collapse:collapse;margin:18px 0}
+.updated-metrics-table th,.updated-metrics-table td{padding:10px;border-bottom:1px solid #dbe3ee;text-align:center}
+.updated-metrics-table th:first-child,.updated-metrics-table td:first-child{text-align:left}
+</style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html" class="active">Dataset</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown">
+          <a href="#">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE HERO
+       ============================================ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <div class="hero-badge">📂 Data Source</div>
+      <h1>The <span>Dataset</span></h1>
+      <p>Understanding the raw data behind our predictions</p>
+    </div>
+  </section>
+  <!-- END PAGE HERO -->
+
+
+  <!-- ============================================
+       SECTION 1 — Dataset Overview
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📋 Dataset Overview</h2>
+        <p>Where the data comes from and what it represents</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="ds-overview">
+        <div class="ds-overview-text">
+          <p>
+            The dataset is sourced from the
+            <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing"
+               target="_blank" class="text-link">
+              UCI Machine Learning Repository
+            </a>
+            and relates to direct marketing campaigns (phone calls) of a
+            <strong>Portuguese banking institution</strong>.
+          </p>
+          <p>
+            The goal is to predict whether a client will subscribe to a
+            <strong>term deposit</strong> (binary target:
+            <span class="badge badge-green">yes</span> /
+            <span class="badge badge-red">no</span>).
+            The dataset reflects a real business challenge —
+            a heavily <strong>imbalanced</strong> target where most
+            customers say NO.
+          </p>
+
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            <span>
+              This dataset is widely used in ML research and competitions.
+              It was collected between <strong>May 2008</strong> and
+              <strong>November 2010</strong>.
+            </span>
+          </div>
+
+          <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing"
+             target="_blank" class="btn btn-primary" style="margin-top:1rem;">
+            <i class="fas fa-external-link-alt"></i> View on UCI Repository
+          </a>
+        </div>
+
+        <!-- Dataset quick stats -->
+        <div class="ds-stats">
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">📋</span>
+            <span class="ds-stat-val">45,211</span>
+            <span class="ds-stat-lab">Total Rows</span>
+          </div>
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">🔢</span>
+            <span class="ds-stat-val">17</span>
+            <span class="ds-stat-lab">Features</span>
+          </div>
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">🎯</span>
+            <span class="ds-stat-val">2</span>
+            <span class="ds-stat-lab">Target Classes</span>
+          </div>
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">⚠️</span>
+            <span class="ds-stat-val">88%</span>
+            <span class="ds-stat-lab">Class "No"</span>
+          </div>
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">✅</span>
+            <span class="ds-stat-val">12%</span>
+            <span class="ds-stat-lab">Class "Yes"</span>
+          </div>
+          <div class="ds-stat-item">
+            <span class="ds-stat-icon">🏦</span>
+            <span class="ds-stat-val">PT</span>
+            <span class="ds-stat-lab">Portugal Bank</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END DATASET OVERVIEW -->
+
+
+  <!-- ============================================
+       SECTION 2 — Features Table
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🔢 Features Description</h2>
+        <p>All 17 features explained</p>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Category: Client Data -->
+      <div class="feat-category">
+        <div class="feat-cat-header">
+          <span class="feat-cat-icon">👤</span>
+          <h3>Client Data (Demographics)</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Feature</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><code>age</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Age of the client</td>
+                <td>35, 42, 58</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><code>job</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Type of job</td>
+                <td>admin, technician, blue-collar</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><code>marital</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Marital status</td>
+                <td>married, single, divorced</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><code>education</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Level of education</td>
+                <td>primary, secondary, tertiary</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><code>default</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Has credit in default?</td>
+                <td>yes, no</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Category: Financial Data -->
+      <div class="feat-category">
+        <div class="feat-cat-header">
+          <span class="feat-cat-icon">💰</span>
+          <h3>Financial Data</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Feature</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>6</td>
+                <td><code>balance</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Average yearly balance (euros)</td>
+                <td>1,500 €, -200 €</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td><code>housing</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Has housing loan?</td>
+                <td>yes, no</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td><code>loan</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Has personal loan?</td>
+                <td>yes, no</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Category: Campaign Data -->
+      <div class="feat-category">
+        <div class="feat-cat-header">
+          <span class="feat-cat-icon">📞</span>
+          <h3>Last Contact / Campaign Data</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Feature</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>9</td>
+                <td><code>contact</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Contact communication type</td>
+                <td>cellular, telephone</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td><code>month</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Last contact month of year</td>
+                <td>jan, feb, mar...</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td><code>day</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Last contact day of the month</td>
+                <td>1 – 31</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td><code>duration</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Last contact duration (seconds)</td>
+                <td>120, 300, 600</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td><code>campaign</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Number of contacts in this campaign</td>
+                <td>1, 3, 5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Category: Previous Campaign -->
+      <div class="feat-category">
+        <div class="feat-cat-header">
+          <span class="feat-cat-icon">📅</span>
+          <h3>Previous Campaign Data</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Feature</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>14</td>
+                <td><code>pdays</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Days since last contact from previous campaign (-1 = never)</td>
+                <td>-1, 90, 180</td>
+              </tr>
+              <tr>
+                <td>15</td>
+                <td><code>previous</code></td>
+                <td><span class="badge badge-blue">Numeric</span></td>
+                <td>Number of contacts before this campaign</td>
+                <td>0, 1, 3</td>
+              </tr>
+              <tr>
+                <td>16</td>
+                <td><code>poutcome</code></td>
+                <td><span class="badge badge-orange">Categorical</span></td>
+                <td>Outcome of the previous campaign</td>
+                <td>success, failure, unknown</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Category: Target -->
+      <div class="feat-category">
+        <div class="feat-cat-header">
+          <span class="feat-cat-icon">🎯</span>
+          <h3>Target Variable</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Feature</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>17</td>
+                <td><code>y</code></td>
+                <td><span class="badge badge-green">Binary Target</span></td>
+                <td>Has the client subscribed to a term deposit?</td>
+                <td>
+                  <span class="badge badge-green">yes (1)</span>
+                  <span class="badge badge-red">no (0)</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END FEATURES TABLE -->
+
+
+  <!-- SECTION 3 — Class Imbalance -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>⚖️ Class Imbalance</h2>
+        <p>Understanding the minority subscriber class</p>
+        <div class="section-line"></div>
+      </div>
+      <div class="imbalance-grid">
+        <div class="imbalance-card imbalance-before">
+          <h3>Class 0 — No</h3>
+          <p class="imb-sub">39,922 observations (88.3%)</p>
+          <div class="imb-bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:88.3%;"></div></div></div>
+        </div>
+        <div class="imbalance-card">
+          <h3>Class 1 — Yes</h3>
+          <p class="imb-sub">5,289 observations (11.7%)</p>
+          <div class="imb-bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:11.7%;"></div></div></div>
+        </div>
+      </div>
+      <div class="updated-analysis-note"><strong>Modeling implication:</strong> A majority-class classifier can achieve high accuracy while failing to identify subscribers. The updated experiment uses class weighting where supported and reports precision, recall, F1-score, balanced accuracy, and ROC-AUC. It does not use SMOTE.</div>
+    </div>
+  </section>
+  <!-- END CLASS IMBALANCE -->
+
+  <!-- SECTION 4 — Train / Test Split -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>✂️ Train / Test Split</h2>
+        <p>How the data was divided for the updated experiment</p>
+        <div class="section-line"></div>
+      </div>
+      <div class="updated-analysis-note"><strong>Evaluation design:</strong> A stratified 80:20 split produced 36,168 training observations and 9,043 held-out test observations. Stratified 3-fold cross-validation was performed on the training set only. Preprocessing was fitted within each training fold; the held-out test set was not resampled or used for model selection.</div>
+    </div>
+  </section>
+  <!-- END TRAIN/TEST SPLIT -->
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <!--
+  <script>
+    /* ----- Mobile Menu Toggle ----- */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    /* ----- Active nav link ----- */
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+
+    /* ----- Animate bars on scroll ----- */
+    const bars = document.querySelectorAll('.bar-fill');
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.width = entry.target.style.width;
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(bar => barObserver.observe(bar));
+  </script>
+  -->
+  <script src="js/main.js"></script>
+
+    <!-- ============================================
+     Floating Repository Button (Fixed)
+     ============================================ -->
+
+</body>
+</html>

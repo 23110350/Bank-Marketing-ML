@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conclusion — Bank Marketing Campaign</title>
+  <!-- ============================================
+       Favicon
+       ============================================ -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown">
+          <a href="#">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html" class="active">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE HERO
+       ============================================ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <div class="hero-badge">📝 Final Thoughts</div>
+      <h1>Project <span>Conclusion</span></h1>
+      <p>Key findings, recommendations, and future directions</p>
+    </div>
+  </section>
+  <!-- END PAGE HERO -->
+
+
+  <!-- ============================================
+       SECTION 1 — Project Summary
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📌 Project Summary</h2>
+        <p>What we set out to do — and what we achieved</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="summary-banner">
+        <div class="summary-banner-text">
+          <p>
+            This project applied <strong>Machine Learning</strong> to predict
+            whether a customer will subscribe to a
+            <strong>term deposit</strong> based on data from a Portuguese
+            bank's telemarketing campaign. We explored the data thoroughly,
+            preprocessed it carefully, and trained <strong>4 classification
+            models</strong> — comparing their performance across multiple
+            metrics.
+          </p>
+          <p>
+            The project shows why model selection must reflect the objective
+            and the cost of classification errors. The tuned
+            <strong>Random Forest</strong> achieved the strongest positive-class
+            F1-score in this experiment, while XGBoost achieved the highest
+            accuracy but missed most actual subscribers at the default threshold.
+            These are offline results, not evidence of proven campaign savings
+            or deployment readiness.
+          </p>
+        </div>
+        <div class="summary-banner-stats">
+          <div class="sb-stat">
+            <span class="sb-icon">📊</span>
+            <span class="sb-val">45,211</span>
+            <span class="sb-lab">Records Analyzed</span>
+          </div>
+          <div class="sb-stat">
+            <span class="sb-icon">🤖</span>
+            <span class="sb-val">4</span>
+            <span class="sb-lab">Models Trained</span>
+          </div>
+          <div class="sb-stat">
+            <span class="sb-icon">🏆</span>
+            <span class="sb-val">0.462</span>
+            <span class="sb-lab">Best Subscriber F1 (Tuned Random Forest)</span>
+          </div>
+          <div class="sb-stat">
+            <span class="sb-icon">📈</span>
+            <span class="sb-val">0.801</span>
+            <span class="sb-lab">Best ROC-AUC (Tuned Random Forest)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END PROJECT SUMMARY -->
+
+
+  <!-- ============================================
+       SECTION 2 — Key Findings
+       ============================================ -->
+  <section class="section section-alt"><div class="container">
+<div class="section-header"><h2>💡 Updated Key Findings</h2><p>Interpretation of the corrected pre-call prediction experiment</p><div class="section-line"></div></div>
+<div class="updated-analysis-note"><strong>Evaluation setup:</strong> stratified 80:20 train/test split; 3-fold stratified cross-validation on the training set; call duration excluded because it is unavailable before a campaign call. The majority-class baseline achieves 88.30% accuracy but zero recall for subscribers.</div>
+<div class="grid-3">
+<div class="finding-card"><h3>Random Forest: strongest F1</h3><p>Random Forest achieved a positive-class F1-score of 0.448 and recall of 0.606, the strongest F1 among the evaluated candidate models.</p></div>
+<div class="finding-card"><h3>XGBoost: accuracy trade-off</h3><p>XGBoost achieved 89.40% accuracy but only 0.154 recall for subscribers. Its high accuracy does not mean it identifies most potential subscribers.</p></div>
+<div class="finding-card"><h3>Baseline matters</h3><p>The majority-class baseline reaches 88.30% accuracy by predicting no subscription for everyone. Accuracy alone is therefore inadequate for this imbalanced task.</p></div>
+</div></div></section>
+  <!-- END KEY FINDINGS -->
+
+
+  <!-- ============================================
+       SECTION 3 — Recommendations
+       ============================================ -->
+  <section class="section"><div class="container">
+<div class="section-header"><h2>🎯 Interpretation and Practical Implications</h2><p>What the experiment supports—and what it does not</p><div class="section-line"></div></div>
+<div class="updated-analysis-note"><strong>Research interpretation:</strong> The results support comparing models using class-sensitive metrics rather than selecting a model by accuracy alone. The tuned Random Forest offers the best positive-class F1 (0.462) and ROC-AUC (0.801) among the reported models, while XGBoost is more conservative in predicting subscriptions at the default threshold.</div>
+<ul>
+<li>Choose an operating threshold only after considering the relative costs of missed subscribers and unnecessary contacts.</li>
+<li>Evaluate any threshold policy on validation data before assessing it once on the held-out test set.</li>
+<li>Do not use call duration for pre-call targeting: it is observed only after a call has taken place.</li>
+<li>Do not interpret predictive associations as causal effects or as evidence that changing a customer's characteristics will cause subscription.</li>
+</ul></div></section>
+  <!-- END RECOMMENDATIONS -->
+
+
+  <!-- ============================================
+       SECTION 4 — Limitations
+       ============================================ -->
+  <section class="section section-alt"><div class="container">
+<div class="section-header"><h2>⚠️ Limitations</h2><p>Constraints on interpretation and generalization</p><div class="section-line"></div></div>
+<ul>
+<li>The dataset represents a particular bank marketing campaign context and may not generalize to other banks, periods, or populations.</li>
+<li>The positive class is relatively uncommon, so performance depends on the chosen threshold and metric.</li>
+<li>A single held-out test set provides one estimate; performance may vary under different temporal or external validation settings.</li>
+<li>Class weighting and model selection do not eliminate all possible bias or data-quality issues.</li>
+<li>The experiment is predictive, not causal, and is not a substitute for a bank's compliance, fairness, or operational review.</li>
+</ul></div></section>
+  <!-- END LIMITATIONS -->
+
+
+  <!-- ============================================
+       SECTION 5 — Final Verdict
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="verdict-box">
+        <div class="verdict-icon">🏆</div>
+        <h2>Final Verdict</h2>
+        <p>
+          This project successfully demonstrated that
+          <strong>Machine Learning can significantly improve</strong>
+          the efficiency of bank marketing campaigns. The experiment suggests that model-based targeting may help prioritize outreach, but it does not measure actual call reductions, campaign savings, or conversion improvements. A controlled pilot and business-cost analysis would be required before making those claims.</p>
+        <p>
+          <strong>Tuned Random Forest</strong> is the strongest candidate on positive-class F1 (0.462) and ROC-AUC (0.801) in this test run. The fixed Random Forest candidate records F1 0.448 and ROC-AUC 0.798. XGBoost has the highest accuracy (89.40%) but low subscriber recall (0.154). The model choice should depend on the bank's relative costs of missed subscribers and unnecessary contacts; deployment readiness has not been established.</p>
+        <div class="verdict-metrics">
+          <div class="verdict-metric">
+            <span class="vm-icon">💰</span>
+            <span class="vm-text">Potential to prioritize outreach (not yet validated in a live campaign)</span>
+          </div>
+          <div class="verdict-metric">
+            <span class="vm-icon">📈</span>
+            <span class="vm-text">Higher conversion rates</span>
+          </div>
+          <div class="verdict-metric">
+            <span class="vm-icon">⏱️</span>
+            <span class="vm-text">Saved agent time</span>
+          </div>
+          <div class="verdict-metric">
+            <span class="vm-icon">🎯</span>
+            <span class="vm-text">Smarter targeting</span>
+          </div>
+        </div>
+        <a href="team.html" class="btn btn-primary" style="margin-top:1.5rem;">
+          <i class="fas fa-users"></i> Meet the Team
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- END FINAL VERDICT -->
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <!--
+  <script>
+    /* ----- Mobile Menu Toggle ----- */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    /* ----- Active nav link ----- */
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+
+    /* ----- Animate finding cards on scroll ----- */
+    const findingCards = document.querySelectorAll('.finding-card');
+    const findObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('finding-visible');
+          }, i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+    findingCards.forEach(card => findObserver.observe(card));
+
+    /* ----- Animate rec items on scroll ----- */
+    const recItems = document.querySelectorAll('.rec-item');
+    const recObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('rec-visible');
+          }, i * 120);
+        }
+      });
+    }, { threshold: 0.1 });
+    recItems.forEach(item => recObserver.observe(item));
+  </script>
+  -->
+  <script src="js/main.js"></script>
+
+    <!-- ============================================
+     Floating Repository Button (Fixed)
+     ============================================ -->
+
+</body>
+</html>

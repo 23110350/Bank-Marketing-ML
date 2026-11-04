@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results & Threshold Explorer — Bank Marketing</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.results-intro{max-width:900px;margin:0 auto 28px;line-height:1.7;color:var(--text-secondary,#555)}
+.results-table-wrap{overflow-x:auto;background:#fff;border-radius:14px;padding:12px;box-shadow:0 5px 24px rgba(0,0,0,.06)}
+.results-table-wrap table{width:100%;border-collapse:collapse;min-width:850px}
+.results-table-wrap th,.results-table-wrap td{padding:13px 12px;text-align:center;border-bottom:1px solid #e8edf2}
+.results-table-wrap th{background:#f3f6fa;color:#263449;font-size:.88rem}
+.results-table-wrap td:first-child,.results-table-wrap th:first-child{text-align:left;font-weight:600}
+.results-table-wrap tr:first-child{background:#f7f9fc}
+.method-note{font-size:.92rem;line-height:1.65;color:#596579;margin-top:14px}
+.explorer{max-width:1000px;margin:0 auto;background:#fff;border-radius:18px;padding:28px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.explorer-controls{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:end}
+.explorer label{display:block;font-weight:650;margin-bottom:9px;color:#25344a}
+.explorer select{width:100%;padding:12px;border:1px solid #ccd5e0;border-radius:9px;background:#fff;font-size:1rem}
+.explorer input[type=range]{width:100%;accent-color:#2563eb}
+.threshold-value{font-weight:750;color:#2563eb;font-size:1.2rem}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.metric-box{background:#f3f6fa;padding:17px;border-radius:12px;text-align:center}
+.metric-box strong{display:block;font-size:1.55rem;color:#1d3557;margin-bottom:5px}
+.metric-box span{font-size:.83rem;color:#5d6b7e}
+.confusion{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:540px;margin:12px auto}
+.cm-cell{padding:18px 10px;border-radius:10px;text-align:center;background:#eef3f8}
+.cm-cell strong{display:block;font-size:1.5rem;color:#1e3553}
+.cm-cell span{font-size:.85rem;color:#536276}
+.explorer-note{font-size:.88rem;line-height:1.6;color:#667085;margin-top:18px}
+.status-msg{padding:14px;background:#fff4e5;border-radius:9px;color:#7a4b00}
+@media(max-width:700px){.explorer-controls{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}.explorer{padding:18px}}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+<a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+<div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Home</a></li><li><a href="roadmap.html">Roadmap</a></li><li><a href="dataset.html">Dataset</a></li><li><a href="eda.html">EDA</a></li><li><a href="preprocessing.html">Preprocessing</a></li>
+<li class="dropdown"><a href="#">Models ▾</a><ul class="dropdown-menu"><li><a href="logistic.html">Logistic Regression</a></li><li><a href="decision_tree.html">Decision Tree</a></li><li><a href="random_forest.html">Random Forest</a></li><li><a href="xgboost.html">XGBoost</a></li></ul></li>
+<li><a href="results.html" class="active">Results</a></li><li><a href="conclusion.html">Conclusion</a></li><li><a href="team.html">Project Info</a></li></ul></div></nav>
+<section class="page-hero"><div class="hero-content"><div class="hero-badge">Verified test-set comparison</div><h1>Model <span>Results</span></h1><p>Comparing a majority baseline with four classifiers</p></div></section>
+<section class="section"><div class="container">
+<div class="section-header"><h2>Overall comparison</h2><p>All models evaluated on the same stratified held-out test set</p><div class="section-line"></div></div>
+<p class="results-intro">The positive class is a term-deposit subscription (yes). Because subscriptions are the minority class, accuracy alone is not sufficient. The majority baseline predicts “no” for every customer; it provides a reference for interpreting the classifiers. Precision, recall, F1, ROC-AUC and average precision provide complementary views of performance.</p>
+<div class="results-table-wrap"><table><thead><tr><th>Model</th><th>Accuracy</th><th>Balanced acc.</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>Avg. precision</th></tr></thead><tbody><tr><td>Majority baseline</td><td>0.883</td><td>0.500</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.500</td><td>0.117</td></tr><tr><td><a href="logistic.html" class="model-link">Logistic Regression</a></td><td>0.755</td><td>0.698</td><td>0.267</td><td>0.624</td><td>0.374</td><td>0.772</td><td>0.409</td></tr><tr><td><a href="decision_tree.html" class="model-link">Decision Tree</a></td><td>0.736</td><td>0.667</td><td>0.239</td><td>0.576</td><td>0.338</td><td>0.717</td><td>0.341</td></tr><tr><td><a href="random_forest.html" class="model-link">Random Forest</a></td><td>0.825</td><td>0.730</td><td>0.355</td><td>0.606</td><td>0.448</td><td>0.798</td><td>0.438</td></tr><tr><td><a href="xgboost.html" class="model-link">XGBoost</a></td><td>0.894</td><td>0.573</td><td>0.718</td><td>0.154</td><td>0.254</td><td>0.781</td><td>0.427</td></tr><tr><td>Tuned Random Forest</td><td>0.844</td><td>0.726</td><td>0.388</td><td>0.572</td><td>0.462</td><td>0.801</td><td>0.448</td></tr></tbody></table></div>
+<p class="method-note"><strong>Evaluation protocol:</strong> stratified 80:20 train/test split (random state 42); three-fold stratified cross-validation on the training partition only. Preprocessing is fitted within each training fold. The final test set is held out for reporting. The “duration” feature is excluded because it is only known after a call, whereas this project studies pre-contact targeting.</p>
+</div></section>
+<section class="section section-alt"><div class="container">
+<div class="section-header"><h2>Interactive threshold explorer</h2><p>Explore how the decision threshold changes classification errors</p><div class="section-line"></div></div>
+<div class="explorer" id="thresholdExplorer">
+<div class="explorer-controls"><div><label for="modelSelect">Choose a model</label><select id="modelSelect"><option>Logistic Regression</option><option>Decision Tree</option><option selected>Random Forest</option><option>XGBoost</option></select></div>
+<div><label for="thresholdSlider">Classification threshold: <span class="threshold-value" id="thresholdValue">0.50</span></label><input id="thresholdSlider" type="range" min="0.05" max="0.95" step="0.01" value="0.50"></div></div>
+<div class="metric-grid"><div class="metric-box"><strong id="precisionValue">—</strong><span>Precision</span></div><div class="metric-box"><strong id="recallValue">—</strong><span>Recall</span></div><div class="metric-box"><strong id="f1Value">—</strong><span>F1-score</span></div><div class="metric-box"><strong id="accuracyValue">—</strong><span>Accuracy</span></div></div>
+<h3 style="text-align:center;margin:20px 0 8px">Confusion matrix</h3><div class="confusion"><div class="cm-cell"><strong id="tnValue">—</strong><span>True negatives</span></div><div class="cm-cell"><strong id="fpValue">—</strong><span>False positives</span></div><div class="cm-cell"><strong id="fnValue">—</strong><span>False negatives</span></div><div class="cm-cell"><strong id="tpValue">—</strong><span>True positives</span></div></div>
+<p class="explorer-note">A lower threshold generally classifies more customers as likely subscribers. This can increase recall while also increasing false positives and reducing precision. Values are recalculated from saved out-of-fold (OOF) training probabilities; they are not live model predictions and do not use the held-out test set. The slider does not retrain or tune the model.</p>
+<div id="explorerStatus" class="status-msg" role="status"><p class="updated-analysis-note"><strong>Out-of-fold threshold sensitivity analysis:</strong> this interactive view uses predictions generated for training observations by models that did not train on those observations. It illustrates the precision–recall trade-off without using the held-out test set for threshold exploration.</p>Loading saved out-of-fold training predictions…</div>
+</div></div></section>
+<section class="section"><div class="container"><div class="section-header"><h2>Interpretation</h2><p>What the comparison does—and does not—show</p><div class="section-line"></div></div>
+<div class="results-intro"><p>The majority baseline achieves high accuracy because most observations belong to the non-subscriber class, but it has zero recall for subscribers. XGBoost has the highest accuracy in this particular test run, while Random Forest has the highest F1-score among the candidate models. This illustrates why the preferred model depends on the cost of different classification errors.</p><p>These results describe one held-out split of this dataset. They do not establish that the models will perform similarly in a different bank, campaign, time period or customer population. Predictive associations should not be interpreted as causal effects.</p></div>
+</div></section>
+<section class="section section-alt"><div class="container">
+<div class="section-header"><h2>Additional evaluation checks</h2><p>Uncertainty, threshold exploration and descriptive error patterns</p><div class="section-line"></div></div>
+<div class="content-card">
+<h3>Threshold sensitivity using out-of-fold predictions</h3>
+<p>The threshold explorer uses out-of-fold predictions generated on the training partition. Each training observation receives a prediction from a model that did not train on that observation. This makes the threshold exploration separate from the final held-out test evaluation. The explorer is a sensitivity tool; any threshold choice should be justified by the campaign's decision costs and fixed before final test reporting.</p>
+<h3>Bootstrap uncertainty intervals</h3>
+<p>The project reports percentile 95% bootstrap intervals for accuracy, precision, recall, F1-score and ROC-AUC on the held-out test set. These intervals describe sampling uncertainty conditional on the chosen split and fitted models; they do not capture variation across different train/test splits or all sources of model-selection uncertainty.</p>
+<p><a href="data/test_metric_bootstrap_ci.csv" target="_blank">View test-metric bootstrap intervals (CSV)</a></p>
+<p>For the fixed Random Forest model, the bootstrap 95% interval is 0.425–0.469 for F1 and 0.782–0.813 for ROC-AUC. These intervals are conditional on the fixed split and fitted model.</p>
+<h3>Random Forest error analysis</h3>
+<p>False-positive and false-negative rates are summarized by job, marital status, education, contact type, previous campaign outcome and age band. These are descriptive group-level diagnostics, not causal explanations. Small groups should be interpreted cautiously.</p>
+<p><a href="data/random_forest_error_by_group.csv" target="_blank">View Random Forest subgroup error analysis (CSV)</a></p>
+<p>In this split, the Random Forest's false-negative rate varies substantially across groups. For example, the `contact = unknown` group contains 103 actual subscribers, of whom 100 are missed at the 0.50 threshold. This is a descriptive result for this dataset and split; it should be investigated before any operational use and should not be interpreted as a causal effect.</p>
+<p><a href="data/random_forest_grid_search.csv" target="_blank">View Random Forest grid-search results (CSV)</a></p>
+<h3>Training-only hyperparameter search</h3>
+<p>A modest grid search evaluates Random Forest settings using stratified three-fold cross-validation on the training partition, optimizing average precision. The held-out test set is not used to choose hyperparameters. The tuned model is reported separately from the fixed candidate models.</p>
+</div></div></section>
+<footer><div class="container"><p>ES 335 individual project adaptation. Dataset: UCI Bank Marketing. See the repository README for execution and reproduction instructions.</p></div></footer>
+<script src="js/main.js"></script><script src="js/threshold-explorer.js"></script>
+</body></html>

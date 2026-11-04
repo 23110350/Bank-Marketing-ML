@@ -1,0 +1,28 @@
+{
+  "dataset": "UCI Bank Marketing bank-full.csv",
+  "observations": 45211,
+  "positive_count": 5289,
+  "negative_count": 39922,
+  "positive_rate": 0.11698480458295547,
+  "train_rows": 36168,
+  "test_rows": 9043,
+  "test_size": 0.2,
+  "random_state": 42,
+  "split": "stratified random 80/20 split",
+  "cv": "3-fold stratified CV on training partition only",
+  "target": "y (yes=1, no=0)",
+  "excluded_feature": "duration (not available before the call)",
+  "pdays_handling": "-1 retained; previously_contacted indicator added",
+  "preprocessing": "imputation and one-hot encoding fitted inside each pipeline/fold",
+  "resampling": "none; class weighting used for classifiers where supported",
+  "note": "Test set used only for final reporting; not used for model selection.",
+  "threshold_explorer": "Uses 3-fold out-of-fold training predictions; held-out test labels are not exposed to threshold exploration.",
+  "hyperparameter_tuning": "Random Forest grid search on training data only, 3-fold stratified CV, optimized for average precision.",
+  "random_forest_best_params": {
+    "model__max_depth": 14,
+    "model__min_samples_leaf": 5,
+    "model__n_estimators": 80
+  },
+  "uncertainty": "Percentile bootstrap 95% intervals on held-out test metrics; conditional on this split and fitted models.",
+  "error_analysis": "Random Forest false-positive and false-negative rates summarized descriptively across job, marital status, education, contact type, previous campaign outcome and age bands."
+}

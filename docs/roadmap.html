@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roadmap — Bank Marketing Campaign</title>
+    <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' 
+    viewBox='0 0 100 100'>
+    <text y='.9em' font-size='90'>🏦</text>
+    </svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+.updated-analysis-note{background:#eef6ff;border-left:4px solid #2563eb;padding:16px 18px;margin:18px 0;border-radius:8px;line-height:1.55}
+.updated-analysis-note strong{color:#173b70}
+.updated-metrics-table{width:100%;border-collapse:collapse;margin:18px 0}
+.updated-metrics-table th,.updated-metrics-table td{padding:10px;border-bottom:1px solid #dbe3ee;text-align:center}
+.updated-metrics-table th:first-child,.updated-metrics-table td:first-child{text-align:left}
+</style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roadmap.html" class="active">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown">
+          <a href="#">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE HERO
+       ============================================ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <div class="hero-badge">🗺️ Project Navigation</div>
+      <h1>Project <span>Roadmap</span></h1>
+      <p>A complete overview of our journey — from raw data to final predictions</p>
+    </div>
+  </section>
+  <!-- END PAGE HERO -->
+
+
+  <!-- ============================================
+       SECTION 1 — Project Overview
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📌 Project Overview</h2>
+        <p>What is this project about?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="overview-box">
+        <div class="overview-text">
+          <p>
+            This project applies <strong>Machine Learning</strong> to a real-world
+            banking problem. Using data from a Portuguese bank's telemarketing
+            campaigns, we compared <strong>4 base classifiers</strong> and a
+            separately tuned Random Forest variant to predict whether a customer will subscribe to a
+            <strong>term deposit</strong>.
+          </p>
+          <p>
+            The dataset contains <strong>45,211 records</strong> and
+            <strong>17 features</strong> including customer demographics,
+            financial info, and campaign history — sourced from the
+            <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing"
+               target="_blank" class="text-link">
+              UCI Machine Learning Repository
+            </a>.
+          </p>
+          <div class="overview-tags">
+            <span class="badge badge-blue">Classification</span>
+            <span class="badge badge-green">Supervised Learning</span>
+            <span class="badge badge-orange">Imbalanced Data</span>
+            <span class="badge badge-blue">class weighting</span>
+            <span class="badge badge-green">Binary Prediction</span>
+          </div>
+        </div>
+        <div class="overview-stats">
+          <div class="ov-stat">
+            <span class="ov-val">45,211</span>
+            <span class="ov-lab">Records</span>
+          </div>
+          <div class="ov-stat">
+            <span class="ov-val">17</span>
+            <span class="ov-lab">Features</span>
+          </div>
+          <div class="ov-stat">
+            <span class="ov-val">4</span>
+            <span class="ov-lab">Models</span>
+          </div>
+          <div class="ov-stat">
+            <span class="ov-val">89.40%</span>
+            <span class="ov-lab">Best Accuracy</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END OVERVIEW -->
+
+
+  <!-- ============================================
+       SECTION 2 — Project Structure
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🏗️ Project Structure</h2>
+        <p>How the project files are organized</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="structure-wrapper">
+        <div class="code-block">
+          <pre>
+  📦 Bank-Marketing-ML-Project/
+  │
+  ├── analysis/
+  │   └── reproduce_analysis.py       ← Current end-to-end experiment pipeline
+  ├── data/
+  │   └── bank-full.csv               ← Original UCI dataset
+  ├── notebooks/
+  │   ├── EDA.ipynb                   ← Exploratory analysis
+  │   ├── Reproduce_Experiment.ipynb  ← Primary current reproduction notebook
+  │   └── archive/                    ← Historical model-specific notebooks
+  ├── outputs/
+  │   ├── model_comparison.csv        ← Held-out test metrics
+  │   ├── test_predictions.json       ← Held-out predictions for final evaluation
+  │   ├── validation_oof_predictions.json ← Training OOF predictions for threshold explorer
+  │   ├── random_forest_grid_search.csv
+  │   ├── test_metric_bootstrap_ci.csv
+  │   ├── random_forest_error_by_group.csv
+  │   └── experiment_metadata.json
+  ├── website/                       ← Website source files
+  │   ├── data/                      ← OOF and test data consumed by website scripts
+  │   ├── js/                        ← Interactive website logic
+  │   ├── css/                       ← Website styling
+  │   └── *.html                     ← Project pages
+  ├── docs/                          ← GitHub Pages publishing copy (main → /docs)
+  ├── scripts/
+  │   └── sync_website.py            ← Copies website/ into docs/
+  ├── requirements.txt
+  └── README.md
+          </pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END STRUCTURE -->
+
+
+  <!-- ============================================
+       SECTION 3 — Project Roadmap (Timeline)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🗺️ Project Roadmap</h2>
+        <p>Step-by-step journey from data to prediction</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- Step 1 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">🔍</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 1 — Exploratory Data Analysis (EDA)</h3>
+              <span class="tl-badge">Notebook 01</span>
+            </div>
+            <p>
+              Analyzed the dataset to understand its structure, distributions,
+              and relationships. Visualized target imbalance, demographics,
+              financial features, and campaign patterns.
+            </p>
+            <div class="tl-tags">
+              <span class="badge badge-blue">Matplotlib</span>
+              <span class="badge badge-blue">Seaborn</span>
+              <span class="badge badge-blue">Pandas</span>
+            </div>
+            <a href="eda.html" class="tl-link">View EDA →</a>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">⚙️</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 2 — Preprocessing</h3>
+              <span class="tl-badge">Notebook 02</span>
+            </div>
+            <p>
+              Cleaned the data, handled missing values, encoded categorical
+              features, scaled numerical columns, and applied
+              <strong>class weighting</strong> to fix the class imbalance problem.
+            </p>
+            <div class="tl-tags">
+              <span class="badge badge-orange">class weighting</span>
+              <span class="badge badge-orange">Label Encoding</span>
+              <span class="badge badge-orange">Scaling</span>
+            </div>
+            <a href="preprocessing.html" class="tl-link">View Preprocessing →</a>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">📈</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 3 — Logistic Regression</h3>
+              <span class="tl-badge">Notebook 03</span>
+            </div>
+            <p>
+              Trained the baseline model using Logistic Regression.
+              Evaluated with Accuracy, Classification Report, Confusion Matrix,
+              and ROC-AUC.
+            </p>
+            <div class="tl-results">
+              <span>✅ Accuracy: <strong>75.53%</strong></span>
+              <span>✅ AUC: <strong>0.772</strong></span>
+            </div>
+            <a href="logistic.html" class="tl-link">View Model →</a>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">🌿</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 4 — Decision Tree</h3>
+              <span class="tl-badge">Notebook 04</span>
+            </div>
+            <p>
+              Trained a Decision Tree Classifier. Simple and interpretable
+              but more prone to overfitting compared to ensemble methods.
+            </p>
+            <div class="tl-results">
+              <span>✅ Accuracy: <strong>73.64%</strong></span>
+              <span>✅ AUC: <strong>0.717</strong></span>
+            </div>
+            <a href="decision_tree.html" class="tl-link">View Model →</a>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">🌲</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 5 — Random Forest</h3>
+              <span class="tl-badge">Fixed + tuned model</span>
+            </div>
+            <p>
+              The fixed Random Forest candidate uses 40 trees. A separate
+              training-only grid search selected a tuned Random Forest; on the
+              held-out test set, the tuned model achieved the highest positive-class
+              F1-score (0.462) and ROC-AUC (0.801) among the evaluated models.
+            </p>
+            <div class="tl-results">
+              <span>Fixed RF — Accuracy: <strong>82.51%</strong></span>
+              <span>Fixed RF — F1: <strong>0.448</strong></span>
+              <span>Tuned RF — F1: <strong>0.462</strong></span>
+              <span>Tuned RF — ROC-AUC: <strong>0.801</strong></span>
+            </div>
+            <a href="random_forest.html" class="tl-link">View Model →</a>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">⚡</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 6 — XGBoost</h3>
+              <span class="tl-badge">Notebook 06</span>
+            </div>
+            <p>
+              Trained an XGBoost classifier using gradient boosting to
+              sequentially improve predictions. It achieved the highest
+              accuracy (89.40%), but its subscriber recall was only 0.154;
+              it did not lead on F1 or ROC-AUC.
+            </p>
+            <div class="tl-results">
+              <span>✅ Accuracy: <strong>89.40%</strong></span>
+              <span>✅ AUC: <strong>0.781</strong></span>
+            </div>
+            <a href="xgboost.html" class="tl-link">View Model →</a>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="timeline-item">
+          <div class="timeline-icon">🌐</div>
+          <div class="timeline-content">
+            <div class="tl-header">
+              <h3>Step 7 — Website</h3>
+              <span class="tl-badge">HTML + CSS + JS</span>
+            </div>
+            <p>
+              Built a fully responsive multi-page website to present the
+              entire project — from dataset exploration to final results
+              and team information.
+            </p>
+            <div class="tl-tags">
+              <span class="badge badge-green">HTML5</span>
+              <span class="badge badge-green">CSS3</span>
+              <span class="badge badge-green">JavaScript</span>
+            </div>
+            <a href="index.html" class="tl-link">View Website →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END ROADMAP TIMELINE -->
+
+
+  <!-- ============================================
+       SECTION 4 — Technologies Used
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🛠️ Technologies Used</h2>
+        <p>Tools and libraries that powered this project</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="tech-grid">
+
+        <!-- Python -->
+        <div class="tech-card">
+          <div class="tech-icon">🐍</div>
+          <h4>Python</h4>
+          <p>Core programming language used for all data processing and modeling</p>
+        </div>
+
+        <!-- Pandas -->
+        <div class="tech-card">
+          <div class="tech-icon">🐼</div>
+          <h4>Pandas</h4>
+          <p>Data manipulation, cleaning, and feature engineering</p>
+        </div>
+
+        <!-- NumPy -->
+        <div class="tech-card">
+          <div class="tech-icon">🔢</div>
+          <h4>NumPy</h4>
+          <p>Numerical computations and array operations</p>
+        </div>
+
+        <!-- Scikit-learn -->
+        <div class="tech-card">
+          <div class="tech-icon">🤖</div>
+          <h4>Scikit-learn</h4>
+          <p>ML models, preprocessing, class weighting, and evaluation metrics</p>
+        </div>
+
+        <!-- XGBoost -->
+        <div class="tech-card">
+          <div class="tech-icon">⚡</div>
+          <h4>XGBoost</h4>
+          <p>Gradient boosting candidate; highest accuracy, but low subscriber recall</p>
+        </div>
+
+        <!-- Matplotlib -->
+        <div class="tech-card">
+          <div class="tech-icon">📊</div>
+          <h4>Matplotlib</h4>
+          <p>Data visualization — charts, plots, and figures</p>
+        </div>
+
+        <!-- Seaborn -->
+        <div class="tech-card">
+          <div class="tech-icon">🎨</div>
+          <h4>Seaborn</h4>
+          <p>Statistical data visualization with beautiful styling</p>
+        </div>
+
+        <!-- Jupyter Notebooks -->
+        <div class="tech-card">
+          <div class="tech-icon">☁️</div>
+          <h4>Jupyter Notebooks</h4>
+          <p>Reproducible notebooks included with the project source</p>
+        </div>
+
+        <!-- HTML + CSS + JS -->
+        <div class="tech-card">
+          <div class="tech-icon">🌐</div>
+          <h4>HTML + CSS + JS</h4>
+          <p>Built the project website — fully responsive and modern</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- END TECHNOLOGIES -->
+
+
+  <!-- ============================================
+       PROJECT NOTEBOOKS SECTION
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📓 Reproducible Experiment & Reference Notebooks</h2>
+        <p>Use the reproducible experiment notebook for the current results; the original notebooks are retained as reference material.</p>
+        <div class="section-line"></div>
+      </div>
+
+      <p class="section-description">Start with the primary reproduction notebook below. The six original notebooks are retained for reference and contain an earlier workflow whose saved outputs are not the source of the corrected results.</p>
+      <a href="notebooks/Reproduce_Experiment.ipynb" target="_blank" class="colab-card" style="margin-bottom:18px;border:2px solid #2563eb;">
+        <span class="colab-num">★</span>
+        <div class="colab-info">
+          <h4>Reproduce the Current Experiment</h4>
+          <p>Runs the corrected analysis script and displays the current held-out comparison; the website threshold explorer separately uses training OOF predictions.</p>
+        </div>
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+      <div class="colab-grid">
+
+
+        <a href="notebooks/EDA.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">01</span>
+          <div class="colab-info">
+            <h4>🔍 EDA</h4>
+            <p>Exploratory Data Analysis & visualizations</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="notebooks/archive/Preprocessing.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">02</span>
+          <div class="colab-info">
+            <h4>⚙️ Preprocessing</h4>
+            <p>Historical reference: original preprocessing workflow</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="notebooks/archive/Logistic_Regression.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">03</span>
+          <div class="colab-info">
+            <h4>📈 Logistic Regression</h4>
+            <p>Historical reference: original Logistic Regression workflow</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="notebooks/archive/Decision_Tree.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">04</span>
+          <div class="colab-info">
+            <h4>🌿 Decision Tree</h4>
+            <p>Historical reference: interpretable tree workflow</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="notebooks/archive/Random_Forest.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">05</span>
+          <div class="colab-info">
+            <h4>🌲 Random Forest</h4>
+            <p>Historical reference; see the reproduction notebook for the current experiment</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="notebooks/archive/XGBoost.ipynb"
+           target="_blank" class="colab-card">
+          <span class="colab-num">06</span>
+          <div class="colab-info">
+            <h4>⚡ XGBoost</h4>
+            <p>Historical reference: original XGBoost workflow</p>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- END PROJECT NOTEBOOKS -->
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <section class="section section-alt"><div class="container">
+<div class="section-header"><h2>Reproducing the Analysis</h2><p>Steps to regenerate the model comparison</p><div class="section-line"></div></div>
+<ol>
+<li>Download or clone the source repository and ensure <code>data/bank-full.csv</code> is present.</li>
+<li>Install Python 3.10+ and the packages listed in <code>requirements.txt</code>.</li>
+<li>From the repository root, run <code>python analysis/reproduce_analysis.py</code>.</li>
+<li>Inspect <code>outputs/model_comparison.csv</code> for final held-out metrics, <code>outputs/test_predictions.json</code> for held-out predictions, and <code>outputs/validation_oof_predictions.json</code> for the training OOF predictions used by the threshold explorer.</li>
+<li>For local preview, run <code>python -m http.server 8000 --directory website</code> from the repository root and open <code>http://localhost:8000</code>.</li>
+<li>For GitHub Pages, publish the repository's <code>docs/</code> folder from the <code>main</code> branch in Pages settings. After website edits, run <code>python scripts/sync_website.py</code> to refresh <code>docs/</code>.</li>
+</ol>
+<p>The threshold explorer uses precomputed out-of-fold predictions from the training partition (<code>validation_oof_predictions.json</code>). Held-out test predictions (<code>test_predictions.json</code>) are kept separate for final evaluation and are not loaded by the explorer. The browser recalculates threshold-dependent metrics; it does not retrain models.</p>
+</div></section>
+<footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <!--
+  <script>
+    /* ----- Mobile Menu Toggle ----- */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    /* ----- Active nav link ----- */
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+
+    /* ----- Timeline animation on scroll ----- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tl-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      observer.observe(item);
+    });
+  </script>
+  -->
+  <script src="js/main.js"></script>
+
+    <!-- ============================================
+     Floating Repository Button (Fixed)
+     ============================================ -->
+
+</body>
+</html>

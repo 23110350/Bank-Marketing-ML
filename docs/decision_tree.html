@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Decision Tree — Bank Marketing Campaign</title>
+  <!-- ============================================
+       Favicon
+       ============================================ -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+.updated-analysis-note{background:#eef6ff;border-left:4px solid #2563eb;padding:16px 18px;margin:18px 0;border-radius:8px;line-height:1.55}
+.updated-analysis-note strong{color:#173b70}
+.updated-metrics-table{width:100%;border-collapse:collapse;margin:18px 0}
+.updated-metrics-table th,.updated-metrics-table td{padding:10px;border-bottom:1px solid #dbe3ee;text-align:center}
+.updated-metrics-table th:first-child,.updated-metrics-table td:first-child{text-align:left}
+</style>
+</head>
+<body>
+<div class="updated-analysis-note"><strong>Updated individual-project evaluation:</strong> These metrics come from the corrected, reproducible experiment in this repository (stratified 80:20 holdout; training-only 3-fold cross-validation; no call-duration feature). Positive-class (subscription) precision is 0.239, recall is 0.576, F1 is 0.338, and ROC-AUC is 0.717. See the Results page for comparison with the majority-class baseline.</div>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown">
+          <a href="#" class="active">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html" class="active">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE HERO
+       ============================================ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <div class="hero-badge">🤖 Model 2 of 4</div>
+      <h1>Decision <span>Tree</span></h1>
+      <p>A simple yet powerful tree-based classifier — easy to interpret and visualize</p>
+    </div>
+  </section>
+  <!-- END PAGE HERO -->
+
+
+  <!-- ============================================
+       SECTION 1 — What is Decision Tree?
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📌 What is a Decision Tree?</h2>
+        <p>Understanding the algorithm</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="model-intro-grid">
+        <div class="model-intro-text">
+          <p>
+            A <strong>Decision Tree</strong> is a flowchart-like model that
+            splits data into branches based on feature values. Each internal
+            node represents a <strong>decision rule</strong>, each branch
+            represents an outcome, and each leaf node represents a
+            <strong>class label</strong>.
+          </p>
+          <p>
+            The tree is built by selecting the feature that provides the
+            best split at each node using criteria such as
+            <strong>Gini Impurity</strong> or
+            <strong>Information Gain (Entropy)</strong>.
+          </p>
+          <p>
+            Decision Trees are highly <strong>interpretable</strong> —
+            you can literally follow the path from root to leaf to understand
+            why a prediction was made. However, they can easily
+            <strong>overfit</strong> without proper pruning.
+          </p>
+
+          <div class="model-formula">
+            <span class="formula-label">Gini Impurity:</span>
+            <code>Gini = 1 − Σ(pᵢ)²</code>
+          </div>
+
+          <div class="model-pros-cons">
+            <div class="pros">
+              <h4>✅ Advantages</h4>
+              <ul>
+                <li>Highly interpretable</li>
+                <li>No feature scaling needed</li>
+                <li>Handles non-linear patterns</li>
+                <li>Works with mixed data types</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Limitations</h4>
+              <ul>
+                <li>Prone to overfitting</li>
+                <li>Unstable — small data changes alter tree</li>
+                <li>Biased toward features with more levels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model Info Box -->
+        <div class="model-info-box">
+          <div class="model-info-header">
+            <span class="model-big-icon">🌿</span>
+            <h3>Decision Tree</h3>
+            <span class="badge badge-orange">Tree-Based Model</span>
+          </div>
+          <div class="model-info-list">
+            <div class="model-info-item">
+              <span class="info-label">Type</span>
+              <span class="info-val">Tree Classifier</span>
+            </div>
+            <div class="model-info-item">
+              <span class="info-label">Library</span>
+              <span class="info-val">Scikit-learn</span>
+            </div>
+            <div class="model-info-item">
+              <span class="info-label">criterion</span>
+              <span class="info-val">gini</span>
+            </div>
+            <div class="model-info-item">
+              <span class="info-label">max_depth</span>
+              <span class="info-val">None</span>
+            </div>
+            <div class="model-info-item">
+              <span class="info-label">random_state</span>
+              <span class="info-val">42</span>
+            </div>
+            <div class="model-info-item">
+              <span class="info-label">Notebook</span>
+              <a href="notebooks/Reproduce_Experiment.ipynb"
+                 target="_blank" class="info-link">
+                <i class="fas fa-external-link-alt"></i> Download Notebook
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END WHAT IS DT -->
+
+
+<!-- ============================================
+     SECTION 2 — How It Works
+     ============================================ -->
+<section class="section section-alt">
+  <div class="container">
+
+    <div class="section-header">
+      <h2>🌿 How Does It Work?</h2>
+      <p>The decision-making process visualized</p>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dt-flow">
+      <div class="dt-node dt-root">
+        <span class="dt-node-label">Root Node</span>
+        <p>poutcome_success ≤ 0.50?</p>
+      </div>
+      <div class="dt-branches">
+        <div class="dt-branch">
+          <div class="dt-branch-label">NO ❌</div>
+          <div class="dt-node dt-inner">
+            <span class="dt-node-label">Internal Node</span>
+            <p>housing ≤ 0.50?</p>
+          </div>
+          <div class="dt-branches dt-small">
+            <div class="dt-branch">
+              <div class="dt-branch-label">YES</div>
+              <div class="dt-node dt-leaf dt-maybe">
+                <span>🟡 Leaf</span>
+                <p><strong>balance ≤ -0.42?</strong></p>
+              </div>
+            </div>
+            <div class="dt-branch">
+              <div class="dt-branch-label">NO</div>
+              <div class="dt-node dt-leaf dt-no">
+                <span>🔴 Leaf</span>
+                <p><strong>contact_cellular ≤ 0.50?</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dt-branch">
+          <div class="dt-branch-label">YES ✅</div>
+          <div class="dt-node dt-inner">
+            <span class="dt-node-label">Internal Node</span>
+            <p>housing ≤ 0.50?</p>
+          </div>
+          <div class="dt-branches dt-small">
+            <div class="dt-branch">
+              <div class="dt-branch-label">YES</div>
+              <div class="dt-node dt-leaf dt-yes">
+                <span>🟢 Leaf</span>
+                <p><strong>campaign ≤ 0.40?</strong></p>
+              </div>
+            </div>
+            <div class="dt-branch">
+              <div class="dt-branch-label">NO</div>
+              <div class="dt-node dt-leaf dt-maybe">
+                <span>🟡 Leaf</span>
+                <p><strong>campaign ≤ 0.08?</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- END HOW IT WORKS -->
+
+
+  <!-- ============================================
+       SECTION 3 — Training Code
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2><section class="section section-alt">
+<div class="container">
+<div class="section-header"><h2>Final experiment results</h2><p>Held-out test performance from the reproducible pipeline</p><div class="section-line"></div></div>
+<div class="grid-4">
+<div class="stat-card"><div class="stat-value">73.64%</div><div class="stat-label">Accuracy</div></div>
+<div class="stat-card"><div class="stat-value">0.2394</div><div class="stat-label">Subscriber precision</div></div>
+<div class="stat-card"><div class="stat-value">0.5756</div><div class="stat-label">Subscriber recall</div></div>
+<div class="stat-card"><div class="stat-value">0.3381</div><div class="stat-label">Subscriber F1-score</div></div>
+</div>
+<div class="content-card">
+<h3>Evaluation details</h3>
+<p><strong>Balanced accuracy:</strong> 0.6666 &nbsp; | &nbsp; <strong>ROC-AUC:</strong> 0.7175</p>
+<table><thead><tr><th>Confusion matrix</th><th>Predicted no</th><th>Predicted yes</th></tr></thead>
+<tbody><tr><th>Actual no</th><td>6,050</td><td>1,935</td></tr><tr><th>Actual yes</th><td>449</td><td>609</td></tr></tbody></table>
+<h3>Interpretation</h3><p>The single Decision Tree has the lowest ROC-AUC and subscriber F1 among the four candidate models. Its lower precision means that a substantial number of customers predicted to subscribe do not subscribe.</p>
+<p>All metrics above use the positive class (subscription) for precision, recall and F1. The held-out test set contains 9,043 observations, including 1,058 subscribers and 7,985 non-subscribers.</p>
+</div>
+</div></section>
+<section class="section"><div class="container">
+<div class="section-header"><h2>How this model was evaluated</h2><p>Consistent experimental design across all four classifiers</p><div class="section-line"></div></div>
+<div class="content-card">
+<ul>
+<li>Input features exclude <strong>duration</strong>, which is only available after the call.</li>
+<li>Data are split using a stratified 80:20 train/test split (random state 42).</li>
+<li>Three-fold stratified cross-validation is performed on the training partition only.</li>
+<li>Imputation and one-hot encoding are fitted inside scikit-learn pipelines within each fold.</li>
+<li>Class weighting is applied to Logistic Regression, Decision Tree and Random Forest as configured in the experiment script; no synthetic oversampling is used.</li>
+<li>Reported test metrics use the default 0.50 probability threshold. The test set is not used for model selection.</li>
+</ul>
+<p><a href="notebooks/Reproduce_Experiment.ipynb" target="_blank">Open the reproducible experiment notebook</a> or <a href="../analysis/reproduce_analysis.py">inspect the Python experiment script</a>.</p>
+</div></div></section>
+<footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <!--
+  <script>
+    /* ----- Mobile Menu Toggle ----- */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    /* ----- Active nav link ----- */
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+
+    /* ----- Animate metric cards on scroll ----- */
+    const metricCards = document.querySelectorAll('.metric-result-card');
+    const metricObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('metric-visible');
+          }, i * 120);
+        }
+      });
+    }, { threshold: 0.2 });
+    metricCards.forEach(card => metricObserver.observe(card));
+  </script>
+  -->
+  <script src="js/main.js"></script>
+
+  <!-- ============================================
+       Floating Repository Button (Fixed)
+       ============================================ -->
+
+</body>
+</html>

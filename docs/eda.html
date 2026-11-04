@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EDA — Bank Marketing Campaign</title>
+  <!-- ============================================
+       Favicon
+       ============================================ -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>"/>
+  <!-- ============================================
+       Main Stylesheet
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🏦 Bank <span>Marketing</span></a>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="eda.html" class="active">EDA</a></li>
+        <li><a href="preprocessing.html">Preprocessing</a></li>
+        <li class="dropdown">
+          <a href="#">Models ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="logistic.html">📈 Logistic Regression</a></li>
+            <li><a href="decision_tree.html">🌿 Decision Tree</a></li>
+            <li><a href="random_forest.html">🌲 Random Forest</a></li>
+            <li><a href="xgboost.html">⚡ XGBoost</a></li>
+          </ul>
+        </li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="conclusion.html">Conclusion</a></li>
+        <li><a href="team.html">Project Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE HERO
+       ============================================ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <div class="hero-badge">🔍 Exploratory Data Analysis</div>
+      <h1>Understanding the <span>Data</span></h1>
+      <p>Digging deep into patterns, distributions, and insights before modeling</p>
+    </div>
+  </section>
+  <!-- END PAGE HERO -->
+
+
+  <!-- ============================================
+       SECTION 0 — What is EDA?
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📌 What is EDA?</h2>
+        <p>Why we explore before we model</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="eda-intro-grid">
+        <div class="eda-intro-text">
+          <p>
+            <strong>Exploratory Data Analysis (EDA)</strong> is the process of
+            analyzing datasets to summarize their main characteristics —
+            using visual methods and statistics before applying any ML model.
+          </p>
+          <p>
+            In this project, EDA helped us understand:
+          </p>
+          <ul class="eda-list">
+            <li><i class="fas fa-check-circle"></i> How the target variable is distributed</li>
+            <li><i class="fas fa-check-circle"></i> Which customer demographics are most common</li>
+            <li><i class="fas fa-check-circle"></i> How financial features relate to subscription</li>
+            <li><i class="fas fa-check-circle"></i> How campaign behavior affects outcome</li>
+            <li><i class="fas fa-check-circle"></i> Which features are most correlated</li>
+          </ul>
+          <a href="notebooks/EDA.ipynb"
+             target="_blank" class="btn btn-primary" style="margin-top:1.2rem;">
+            <i class="fas fa-external-link-alt"></i> Download EDA Notebook
+          </a>
+        </div>
+
+        <div class="eda-intro-stats">
+          <div class="eda-stat">
+            <span class="eda-stat-icon">📊</span>
+            <span class="eda-stat-val">9</span>
+            <span class="eda-stat-lab">Analysis Steps</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">🔢</span>
+            <span class="eda-stat-val">17</span>
+            <span class="eda-stat-lab">Features Explored</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">📋</span>
+            <span class="eda-stat-val">45K</span>
+            <span class="eda-stat-lab">Records Analyzed</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">💡</span>
+            <span class="eda-stat-val">6</span>
+            <span class="eda-stat-lab">Key Insights</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END WHAT IS EDA -->
+
+
+  <!-- ============================================
+       SECTION 1 — Load & Overview
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📂 Step 1-2: Load Dataset & Overview</h2>
+        <p>Understanding the data structure</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="eda-intro-grid">
+        <div class="eda-intro-text">
+          <p>
+            We loaded the <strong>bank-full.csv</strong> dataset from the
+            UCI Machine Learning Repository containing bank marketing
+            campaign data. Let's examine the structure, data types,
+            missing values, and duplicates.
+          </p>
+          <div class="pre-code">
+            <pre># Load dataset from the repository's data/ folder
+from pathlib import Path
+
+candidate_paths = [
+    Path("data/bank-full.csv"),
+    Path("../data/bank-full.csv"),
+    Path("../../data/bank-full.csv"),
+    Path("bank-full.csv"),
+]
+dataset_path = next((path for path in candidate_paths if path.exists()), None)
+if dataset_path is None:
+    raise FileNotFoundError(
+        "Could not find bank-full.csv. Place it at data/bank-full.csv in the repository."
+    )
+
+df = pd.read_csv(dataset_path)
+print("Loaded dataset from:", dataset_path.resolve())
+
+# Display structure
+print("Shape:", df.shape)
+print("\nData Types:")
+print(df.dtypes)
+</pre>
+          </div>
+        </div>
+
+        <div class="eda-intro-stats">
+          <div class="eda-stat">
+            <span class="eda-stat-icon">📊</span>
+            <span class="eda-stat-val">45,211</span>
+            <span class="eda-stat-lab">Total Records</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">🔢</span>
+            <span class="eda-stat-val">17</span>
+            <span class="eda-stat-lab">Features</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">✅</span>
+            <span class="eda-stat-val">0</span>
+            <span class="eda-stat-lab">Missing Values</span>
+          </div>
+          <div class="eda-stat">
+            <span class="eda-stat-icon">🔁</span>
+            <span class="eda-stat-val">0</span>
+            <span class="eda-stat-lab">Duplicates</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-success" style="margin-top:2rem;">
+        <i class="fas fa-check-circle"></i>
+        <span>
+          <strong>Data Quality:</strong> No null values or duplicates found —
+          dataset is clean and ready for analysis
+        </span>
+      </div>
+
+    </div>
+  </section>
+  <!-- END LOAD & OVERVIEW -->
+
+
+  <!-- ============================================
+       SECTION 2 — Statistical Summary
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📊 Step 3: Statistical Summary</h2>
+        <p>Descriptive statistics for numerical features</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Mean</th>
+              <th>Std Dev</th>
+              <th>Min</th>
+              <th>25%</th>
+              <th>50%</th>
+              <th>75%</th>
+              <th>Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>age</strong></td>
+              <td>40.9</td>
+              <td>10.6</td>
+              <td>18</td>
+              <td>33</td>
+              <td>39</td>
+              <td>48</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td><strong>balance</strong></td>
+              <td>1,362.3</td>
+              <td>3,044.8</td>
+              <td>-8,019</td>
+              <td>69</td>
+              <td>448</td>
+              <td>1,428</td>
+              <td>102,127</td>
+            </tr>
+            <tr>
+              <td><strong>day</strong></td>
+              <td>15.8</td>
+              <td>8.8</td>
+              <td>1</td>
+              <td>8</td>
+              <td>16</td>
+              <td>21</td>
+              <td>31</td>
+            </tr>
+            <tr>
+              <td><strong>duration</strong></td>
+              <td>258.2</td>
+              <td>257.5</td>
+              <td>0</td>
+              <td>103</td>
+              <td>180</td>
+              <td>319</td>
+              <td>4,918</td>
+            </tr>
+            <tr>
+              <td><strong>campaign</strong></td>
+              <td>2.8</td>
+              <td>3.1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>56</td>
+            </tr>
+            <tr>
+              <td><strong>pdays</strong></td>
+              <td>40.2</td>
+              <td>100.1</td>
+              <td>-1</td>
+              <td>-1</td>
+              <td>-1</td>
+              <td>-1</td>
+              <td>871</td>
+            </tr>
+            <tr>
+              <td><strong>previous</strong></td>
+              <td>0.6</td>
+              <td>2.8</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>275</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:2rem;">
+        <i class="fas fa-info-circle"></i>
+        <span>
+          <strong>Note:</strong> pdays = -1 indicates customer was never contacted before.
+          We'll handle this in preprocessing.
+        </span>
+      </div>
+
+    </div>
+  </section>
+  <!-- END STATISTICAL SUMMARY -->
+
+
+  <!-- ============================================
+       SECTION 3 — Target Distribution
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🎯 Step 4: Target Variable Distribution</h2>
+        <p>How balanced is our target variable?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="viz-layout">
+        <!-- Image -->
+        <div class="viz-img-wrap">
+          <img src="images/eda/target_distribution.png"
+               alt="Target Distribution"
+               class="viz-img" />
+        </div>
+        <!-- Insight -->
+        <div class="viz-insight">
+          <div class="insight-header">
+            <span class="insight-icon">💡</span>
+            <h3>Key Insight</h3>
+          </div>
+          <p>
+            The target variable <code>y</code> is heavily imbalanced:
+          </p>
+          <div class="insight-bars">
+            <div class="ins-bar-item">
+              <div class="ins-bar-label">
+                <span>❌ No (Class 0)</span>
+                <strong>88.3%</strong>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill"
+                     style="width:88.3%;
+                     background:linear-gradient(to right,#e74c3c,#c0392b);">
+                </div>
+              </div>
+            </div>
+            <div class="ins-bar-item">
+              <div class="ins-bar-label">
+                <span>✅ Yes (Class 1)</span>
+                <strong>11.7%</strong>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:11.7%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="insight-stats">
+            <div class="ins-stat">
+              <span class="ins-stat-label">Not Subscribed</span>
+              <span class="ins-stat-val">39,922</span>
+            </div>
+            <div class="ins-stat">
+              <span class="ins-stat-label">Subscribed</span>
+              <span class="ins-stat-val">5,289</span>
+            </div>
+          </div>
+          <div class="alert alert-warning" style="margin-top:1rem;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>
+              The target is imbalanced, so the updated experiment uses class-sensitive learning and evaluates subscriber precision, recall, F1, and ROC-AUC—not accuracy alone.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END TARGET DISTRIBUTION -->
+
+
+  <!-- ============================================
+       SECTION 4 — Demographics
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>👤 Step 5: Demographics Analysis</h2>
+        <p>Who are the bank's customers?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="viz-layout">
+        <!-- Image -->
+        <div class="viz-img-wrap">
+          <img src="images/eda/demographics.png"
+               alt="Demographics Analysis"
+               class="viz-img" />
+        </div>
+        <!-- Insight -->
+        <div class="viz-insight">
+          <div class="insight-header">
+            <span class="insight-icon">💡</span>
+            <h3>Key Insights</h3>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="ins-dot ins-blue"></span>
+              <div>
+                <strong>Age:</strong> Average age is <strong>40.9 years</strong>.
+                Most customers are between 30–40 years old. Older customers (60+)
+                show higher subscription rates.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-green"></span>
+              <div>
+                <strong>Job:</strong> Most common jobs are <strong>blue-collar</strong>
+                (22%), <strong>management</strong> (25%), and <strong>technicians</strong> (15%).
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-orange"></span>
+              <div>
+                <strong>Marital Status:</strong> Married customers dominate (~60%),
+                but <strong>single customers</strong> have slightly higher subscription rates.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-purple"></span>
+              <div>
+                <strong>Education:</strong> Customers with <strong>tertiary education</strong>
+                are more likely to subscribe to a term deposit.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END DEMOGRAPHICS -->
+
+
+  <!-- ============================================
+       SECTION 5 — Financial Features
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>💰 Step 6: Financial Features Analysis</h2>
+        <p>How do balance and loans affect subscription?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Image -->
+      <div class="viz-img-wrap">
+        <img src="images/eda/financial_features.png"
+              alt="Financial Features"
+              class="viz-img" />
+      </div>
+
+      <div class="viz-layout viz-layout-reverse">
+        <!-- Insight -->
+        <div class="viz-insight">
+          <div class="insight-header">
+            <span class="insight-icon">💡</span>
+            <h3>Key Insights</h3>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="ins-dot ins-green"></span>
+              <div>
+                <strong>Balance:</strong> Average balance is <strong>€1,362.3</strong>.
+                Customers with <strong>higher account balances</strong> tend to subscribe more —
+                they have more financial security to invest.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-red"></span>
+              <div>
+                <strong>Housing Loan:</strong> <strong>55.6%</strong> have a housing loan.
+                Customers <strong>without a housing loan</strong> are more likely to subscribe
+                — less financial burden.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-orange"></span>
+              <div>
+                <strong>Personal Loan:</strong> <strong>16.0%</strong> have a personal loan.
+                Customers <strong>without a personal loan</strong> show higher subscription rates.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-purple"></span>
+              <div>
+                <strong>Credit Default:</strong> Very few customers have credit defaults,
+                but those without are more likely to subscribe.
+              </div>
+            </li>
+          </ul>
+          <div class="alert alert-info" style="margin-top:1rem;">
+            <i class="fas fa-lightbulb"></i>
+            <span>
+              <strong>Key Takeaway:</strong> Loan status is associated with subscription in this dataset; this is not evidence that debt causes lower subscription.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END FINANCIAL FEATURES -->
+
+
+  <!-- ============================================
+       SECTION 6 — Campaign Features
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📞 Step 7: Campaign Features Analysis</h2>
+        <p>How does the campaign itself affect the outcome?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="viz-layout">
+        <!-- Image -->
+        <div class="viz-img-wrap">
+          <img src="images/eda/campaign_features.png"
+               alt="Campaign Features"
+               class="viz-img" />
+        </div>
+        <!-- Insight -->
+        <div class="viz-insight">
+          <div class="insight-header">
+            <span class="insight-icon">💡</span>
+            <h3>Key Insights</h3>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="ins-dot ins-blue"></span>
+              <div>
+                <strong>Duration:</strong> Average call duration is <strong>258.2 seconds</strong> (~4.3 minutes).
+                <strong>Longer call duration strongly correlates with subscription</strong> —
+                the longer the call, the higher the chance of conversion.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-green"></span>
+              <div>
+                <strong>Month:</strong> Calls in <strong>March, September, October, December</strong>
+                have higher success rates. These are descriptive differences in this dataset; they do not establish why conversion rates vary.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-orange"></span>
+              <div>
+                <strong>Campaign Count:</strong> Average <strong>2.8 contacts</strong> per campaign.
+                Customers contacted <strong>fewer times</strong> are more likely to subscribe —
+                too many calls leads to rejection.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-purple"></span>
+              <div>
+                <strong>Previous Outcome:</strong> If the previous campaign was a <strong>success</strong>,
+                the customer is much more likely to subscribe again.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END CAMPAIGN FEATURES -->
+
+
+  <!-- ============================================
+       SECTION 7 — Correlation Heatmap
+       ============================================ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>🔥 Step 8: Correlation Heatmap</h2>
+        <p>How do features relate to each other?</p>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Image -->
+      <div class="viz-img-wrap">
+        <img src="images/eda/correlation_heatmap.png"
+              alt="Correlation Heatmap"
+              class="viz-img" />
+      </div>
+
+      <div class="viz-layout viz-layout-reverse">
+        <!-- Insight -->
+        <div class="viz-insight">
+          <div class="insight-header">
+            <span class="insight-icon">💡</span>
+            <h3>Key Insights</h3>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="ins-dot ins-green"></span>
+              <div>
+                <strong>Duration ↔ Target (y):</strong> Strongest positive correlation
+                with target — most important feature for prediction.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-blue"></span>
+              <div>
+                <strong>pdays ↔ previous:</strong> Highly correlated — both relate to
+                prior campaign contact history. Expected behavior.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-orange"></span>
+              <div>
+                <strong>Age ↔ balance:</strong> Mild positive correlation —
+                older customers tend to have more savings.
+              </div>
+            </li>
+            <li>
+              <span class="ins-dot ins-purple"></span>
+              <div>
+                <strong>Low Multicollinearity:</strong> Most features show low correlation
+                — good for model stability and interpretability.
+              </div>
+            </li>
+          </ul>
+          <div class="alert alert-success" style="margin-top:1rem;">
+            <i class="fas fa-check-circle"></i>
+            <span>
+              No severe multicollinearity detected —
+              correlation alone does not determine feature suitability; call duration is excluded from pre-call modeling.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END CORRELATION HEATMAP -->
+
+
+  <!-- ============================================
+       SECTION 8 — EDA Summary & Key Findings
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>📝 Step 9: EDA Summary & Key Findings</h2>
+        <p>What we learned from the data</p>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Dataset Overview -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">📊</div>
+        <div class="summary-stat-content">
+          <h4>Dataset Overview</h4>
+          <ul>
+            <li>📍 <strong>Total Records:</strong> 45,211</li>
+            <li>🔢 <strong>Total Features:</strong> 17</li>
+            <li>❌ <strong>Missing Values:</strong> 0</li>
+            <li>🔁 <strong>Duplicates:</strong> 0</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Target Distribution -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">🎯</div>
+        <div class="summary-stat-content">
+          <h4>Target Distribution</h4>
+          <ul>
+            <li>📍 <strong>Total Subscriptions:</strong> 5,289 (11.7%)</li>
+            <li>📍 <strong>Total Non-Subscriptions:</strong> 39,922 (88.3%)</li>
+            <li>⚠️ <strong>Status:</strong> Highly Imbalanced</li>
+            <li>💡 <strong>Modeling response:</strong> Class weighting in the updated experiment</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Customer Demographics -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">👤</div>
+        <div class="summary-stat-content">
+          <h4>Customer Demographics</h4>
+          <ul>
+            <li>📍 <strong>Average Age:</strong> 40.9 years</li>
+            <li>📍 <strong>Most Common Job:</strong> Blue-collar</li>
+            <li>📍 <strong>Marital Status:</strong> 60% Married</li>
+            <li>📍 <strong>Education:</strong> Tertiary = Higher Conversion</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Financial Profile -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">💰</div>
+        <div class="summary-stat-content">
+          <h4>Financial Profile</h4>
+          <ul>
+            <li>📍 <strong>Average Balance:</strong> €1,362.3</li>
+            <li>📍 <strong>Housing Loan:</strong> 55.6% have</li>
+            <li>📍 <strong>Personal Loan:</strong> 16.0% have</li>
+            <li>💡 <strong>Insight:</strong> Debt-free = Better Prospect</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Campaign Behavior -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">📞</div>
+        <div class="summary-stat-content">
+          <h4>Campaign Behavior</h4>
+          <ul>
+            <li>📍 <strong>Average Duration:</strong> 258.2 seconds (4.3 min)</li>
+            <li>📍 <strong>Average Contacts:</strong> 2.8 per campaign</li>
+            <li>📍 <strong>Best Months:</strong> March, Sept, Oct, Dec</li>
+            <li>💡 <strong>Insight:</strong> Longer calls = Higher Conversion</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature Correlation -->
+      <div class="summary-stat-box" style="margin-bottom:2rem;">
+        <div class="summary-stat-icon">🔥</div>
+        <div class="summary-stat-content">
+          <h4>Feature Correlation</h4>
+          <ul>
+            <li>📍 <strong>Strongest descriptive association:</strong> Duration (observed after the call)</li>
+            <li>📍 <strong>Multicollinearity:</strong> Low (✅ Good)</li>
+            <li>📍 <strong>Age ↔ Balance:</strong> Mild Correlation</li>
+            <li>💡 <strong>Modeling note:</strong> Duration is excluded from pre-call prediction to prevent information leakage</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid-3" style="margin-top:3rem;">
+        <div class="summary-card">
+          <div class="summary-icon">⚠️</div>
+          <h4>Imbalanced Target</h4>
+          <p>
+            88% of customers said NO. The updated experiment uses class weighting and class-sensitive metrics; it does not apply SMOTE.
+          </p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">📞</div>
+          <h4>Duration is Associated — but Excluded</h4>
+          <p>
+            Call duration is strongly associated with subscription, but it is only known after a call. It is excluded from the pre-call prediction models.
+          </p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">💰</div>
+          <h4>Loan status is associated with subscription</h4>
+          <p>
+            Subscription rates differ by housing-loan and personal-loan status; these are associations, not causal effects.
+          </p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">📅</div>
+          <h4>Conversion varies by month</h4>
+          <p>
+            Observed conversion rates vary by month in this dataset; the pattern should not be interpreted as a causal seasonal effect.
+          </p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">🎓</div>
+          <h4>Education groups differ</h4>
+          <p>
+            Subscription rates differ across education groups; the data does not measure financial awareness or explain the difference.
+          </p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon">✅</div>
+          <h4>Previous campaign outcome is informative</h4>
+          <p>
+            A successful previous campaign outcome is one of
+            the strongest indicators of a new subscription.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END EDA SUMMARY -->
+
+
+  <!-- ============================================
+       NEXT STEP CTA
+       ============================================ -->
+  <section class="next-step-cta">
+    <div class="container">
+      <div class="next-step-content">
+        <span class="next-step-label">Next Step</span>
+        <h3>⚙️ Preprocessing</h3>
+        <p>Cleaning, encoding, scaling, and balancing the data</p>
+        <a href="preprocessing.html" class="btn btn-primary">
+          <i class="fas fa-arrow-right"></i> Go to Preprocessing
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- END NEXT STEP -->
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <p>
+      🏦 Bank Marketing Campaign &nbsp;|&nbsp;
+      Machine Learning Project &nbsp;|&nbsp;
+      <span>ES 335 Individual Course Project — IIT Gandhinagar</span> &nbsp;
+    </p>
+  </footer>
+  <!-- END FOOTER -->
+
+
+    <!-- ============================================
+        JAVASCRIPT
+        ============================================ -->
+    <!--
+    <script>
+      /* ----- Mobile Menu Toggle ----- */
+      function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('open');
+      }
+
+      /* ----- Active nav link ----- */
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        if (link.href === window.location.href) {
+          link.classList.add('active');
+        }
+      });
+
+      /* ----- Fade-in images on scroll ----- */
+      const vizImgs = document.querySelectorAll('.viz-img');
+      const imgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('viz-img-visible');
+          }
+        });
+      }, { threshold: 0.2 });
+      vizImgs.forEach(img => imgObserver.observe(img));
+
+      /* ----- Fade-in summary cards ----- */
+      const summaryCards = document.querySelectorAll('.summary-card');
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('card-visible');
+            }, i * 100);
+          }
+        });
+      }, { threshold: 0.1 });
+      summaryCards.forEach(card => cardObserver.observe(card));
+    </script>
+    -->
+  <script src="js/main.js"></script>
+
+  <!-- ============================================
+       Floating Repository Button (Fixed)
+       ============================================ -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
