@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://23110350.github.io/Bank-Marketing/">
+  <a href="https://23110350.github.io/Bank-Marketing-ML/">
     <strong>🌐 View the Live Project Website</strong>
   </a>
 </p>
@@ -86,7 +86,7 @@ The preferred model therefore depends on the campaign objective. If missing like
 
 The interactive website presents the project background, dataset, exploratory analysis, preprocessing, model explanations, results, and conclusion.
 
-**[Open the live Bank Marketing ML project website](https://23110350.github.io/Bank-Marketing/)**
+**[Open the live Bank Marketing ML project website](https://23110350.github.io/Bank-Marketing-ML/)**
 
 ## Repository Structure
 
@@ -146,9 +146,7 @@ Bank-Marketing-ML-Project/
 
 The primary notebook, `notebooks/Reproduce_Experiment.ipynb`, provides a notebook-based entry point to the experiment.
 
-## Individual Defense Preparation
-
-This section is a preparation aid for explaining the project's decisions. Do not memorize it word for word. Be ready to explain the ideas in your own words and point to the relevant code, results, and limitations.
+## FAQs
 
 ### 1. Why is `duration` excluded?
 
@@ -220,8 +218,6 @@ A bank would need to define the objective and relative costs of FP and FN errors
 ### A concise project explanation
 
 > "We framed the task as predicting subscription before a marketing call, so we excluded call duration because it is only known afterward. The data is imbalanced, which is why the majority baseline's 88.3% accuracy is not meaningful on its own. We compared a simple linear model with tree-based models, used training-only cross-validation to tune Random Forest using average precision, and kept the test set for final evaluation. The tuned Random Forest gives the strongest F1 and ROC-AUC in this split, but the best operational choice depends on the relative costs of missed subscribers and unnecessary contacts. OOF predictions power the threshold explorer, while held-out test predictions remain reserved for final reporting. One historical split cannot establish performance on future campaigns or other populations."
-
-**Defense advice:** Explain the metrics in your own words, locate the corresponding implementation and output, and state what the experiment does *not* prove. If asked for a business-optimal threshold or monetary error cost, explain that the required campaign cost and value data were not available rather than inventing figures.
 
 ---
 
