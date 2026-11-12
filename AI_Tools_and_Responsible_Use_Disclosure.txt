@@ -1,7 +1,6 @@
-AI Tools and Responsible Use Disclosure ES 335 Bank Marketing Machine
-Learning Project
+AI Tools and Responsible Use Disclosure for ES 335 Bank Marketing Machine Learning Project
 
-AI tool used: I used ChatGPT (OpenAI) while working on this project.
+AI tool used: ChatGPT (OpenAI)
 
 How I used AI: - I used it to brainstorm ideas and clarify the project
 structure, methodology, and explanations. - I used it for assistance
@@ -16,13 +15,11 @@ Verification and responsibility: I reviewed the suggestions and outputs
 generated with AI and remain responsible for the code, methodology,
 results, explanations, and final submission. I understand that
 AI-generated outputs may contain errors, so important details must be
-checked independently. I am responsible for being able to explain and
-defend the work in a viva.
+checked independently.
 
 External materials: I have used external datasets, references, and other
 third-party materials only where relevant to the project, and I have
-identified or cited those sources in the appropriate project files. AI
-assistance does not replace attribution to original sources.
+identified or cited those sources in the appropriate project files.
 
 Responsible sharing: I have taken care not to publish passwords, API
 keys, private student information, or data that I am not permitted to
